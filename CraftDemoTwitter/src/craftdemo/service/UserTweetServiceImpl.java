@@ -22,20 +22,7 @@ public class UserTweetServiceImpl implements UserTweetService {
 
 	@Override
 	public List<UserTweet> getFeed() throws Exception {
-		List<UserTweet> usertweets = new ArrayList<UserTweet>();
-		
-		UserTweet userTweet1 = new UserTweet();
-		userTweet1.setUsername("aren");
-		userTweet1.setTweetMessage("hey was up");
-		
-		UserTweet userTweet2 = new UserTweet();
-		userTweet2.setUsername("aren2 new");
-		userTweet2.setTweetMessage("hey was up 2");
-		
-		usertweets.add(userTweet1);
-		usertweets.add(userTweet2);
-		
-		return usertweets;
+		return userTweetDao.getFeed();
 	}
 
 	@Override

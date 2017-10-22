@@ -31,9 +31,21 @@
 				</configuration>
 			</plugin>
 		</plugins>
+		<resources>
+            <resource>
+                <directory>src/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
 	</build>
 
 	<properties>
+		<spring.security.version>4.1.0.RELEASE</spring.security.version>
+		<servlet.api.version>3.1.0</servlet.api.version>
+		<jsp.api.version>2.2</jsp.api.version>
+		<jstl.version>1.2</jstl.version>
+
+
 		<jersey.version>2.12</jersey.version>
 		<spring.version>4.1.0.RELEASE</spring.version>
 		<jersey.scope>compile</jersey.scope>
@@ -82,6 +94,26 @@
 			</exclusions>
 		</dependency>
 
+
+
+
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<version>${servlet.api.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet.jsp</groupId>
+			<artifactId>jsp-api</artifactId>
+			<version>${jsp.api.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>jstl</groupId>
+			<artifactId>jstl</artifactId>
+			<version>${jstl.version}</version>
+		</dependency>
+
+
 		<!-- Spring Framework-4.x -->
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -109,6 +141,33 @@
 			<artifactId>spring-webmvc</artifactId>
 			<version>${spring.version}</version>
 		</dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-web</artifactId>
+			<version>${spring.security.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-config</artifactId>
+			<version>${spring.security.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.ldap</groupId>
+			<artifactId>spring-ldap-core</artifactId>
+			<version>2.3.2.RELEASE</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-ldap</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		
+		<dependency>
+            <!-- Is the ApacheDS server - 1.5.6 and 1.5.7 don't work -->
+            <groupId>org.apache.directory.server</groupId>
+            <artifactId>apacheds-server-jndi</artifactId>
+            <version>1.5.5</version>
+        </dependency>
 
 		<!-- LogBack dependencies -->
 		<dependency>

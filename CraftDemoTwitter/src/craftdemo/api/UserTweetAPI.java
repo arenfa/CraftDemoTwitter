@@ -3,6 +3,7 @@ package craftdemo.api;
  
 import java.util.List;
 
+import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -16,6 +17,9 @@ import javax.ws.rs.core.Response.Status;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
 import craftdemo.model.Tweet;
@@ -45,10 +49,17 @@ public class UserTweetAPI {
 	@GET
 	@Path("/feed")
 	@Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+	//@RolesAllowed("ROLE_USER")
 	public UserTweets feed() throws WebApplicationException {
 		log.info("test");
 		log.error("test error");
 		UserTweets userTweets = new UserTweets();
+		
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		if (!(authentication instanceof AnonymousAuthenticationToken)) {
+		    String currentUserName = authentication.getName();
+		   System.out.println("user is: " + currentUserName);
+		}
 		
 		try {
 			List<UserTweet> userTweetList = userTweetService.getFeed();
@@ -65,9 +76,14 @@ public class UserTweetAPI {
 	@Path("/follow")
 	@Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
 	@Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+	//@RolesAllowed("ROLE_USER")
 	public Response follow(UserFollow userFollow) throws WebApplicationException {
 		try {
-			userTweetService.follow(userFollow.getUserId());
+			if(userFollow.isFollow()) {
+				userTweetService.follow(userFollow.getUserId());
+			} else {
+				userTweetService.unfollow(userFollow.getUserId());
+			}
 		} catch (Exception e) {
 			throw new WebApplicationException(e, Status.INTERNAL_SERVER_ERROR);
 		}

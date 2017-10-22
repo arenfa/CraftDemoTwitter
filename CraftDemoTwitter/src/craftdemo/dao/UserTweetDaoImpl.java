@@ -1,5 +1,6 @@
 package craftdemo.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Repository;
@@ -16,8 +17,20 @@ public class UserTweetDaoImpl implements UserTweetDao {
 
 	@Override
 	public List<UserTweet> getFeed() throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		List<UserTweet> usertweets = new ArrayList<UserTweet>();
+		
+		UserTweet userTweet1 = new UserTweet();
+		userTweet1.setUsername("aren from dao");
+		userTweet1.setTweetMessage("hey was up");
+		
+		UserTweet userTweet2 = new UserTweet();
+		userTweet2.setUsername("aren2 new");
+		userTweet2.setTweetMessage("hey was up 2");
+		
+		usertweets.add(userTweet1);
+		usertweets.add(userTweet2);
+		
+		return usertweets;
 	}
 
 	@Override

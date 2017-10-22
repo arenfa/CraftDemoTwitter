@@ -14,9 +14,9 @@
       <display-name>Jersey-Spring-Integration</display-name>
  
     <!-- Spring Listener -->
-    <listener>
+<!--     <listener>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
-    </listener>
+    </listener> -->
  
     <!-- Jersey Servlet -->
     <servlet>
