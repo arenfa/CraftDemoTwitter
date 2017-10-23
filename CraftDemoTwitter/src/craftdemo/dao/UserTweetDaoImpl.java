@@ -15,6 +15,8 @@ import craftdemo.model.UserTweet;
 @Repository("userTweetDAO")
 public class UserTweetDaoImpl implements UserTweetDao {
 
+	// we can do in memory db here
+	
 	@Override
 	public List<UserTweet> getFeed() throws Exception {
 		List<UserTweet> usertweets = new ArrayList<UserTweet>();

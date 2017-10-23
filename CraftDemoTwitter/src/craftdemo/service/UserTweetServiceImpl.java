@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import craftdemo.dao.UserTweetDao;
@@ -18,6 +19,7 @@ import craftdemo.model.UserTweet;
 public class UserTweetServiceImpl implements UserTweetService {
 	
 	@Autowired
+	@Qualifier("userTweetCassandraDAO")
 	private UserTweetDao userTweetDao;
 
 	@Override
@@ -51,8 +53,7 @@ public class UserTweetServiceImpl implements UserTweetService {
 
 	@Override
 	public void tweet(String message) throws Exception {
-		// TODO Auto-generated method stub
-		
+		userTweetDao.tweet(message);
 	}
 
 

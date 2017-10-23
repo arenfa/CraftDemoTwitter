@@ -32,11 +32,11 @@
 			</plugin>
 		</plugins>
 		<resources>
-            <resource>
-                <directory>src/resources</directory>
-                <filtering>true</filtering>
-            </resource>
-        </resources>
+			<resource>
+				<directory>src/resources</directory>
+				<filtering>true</filtering>
+			</resource>
+		</resources>
 	</build>
 
 	<properties>
@@ -54,6 +54,14 @@
 		<maven.compiler.source>1.7</maven.compiler.source>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
+
+	<repositories>
+		<repository>
+			<id>spring-milestone</id>
+			<name>Spring Maven MILESTONE Repository</name>
+			<url>http://repo.spring.io/libs-milestone</url>
+		</repository>
+	</repositories>
 
 	<dependencies>
 		<!-- Jersey core Servlet 2.x implementation -->
@@ -161,13 +169,20 @@
 			<artifactId>spring-security-ldap</artifactId>
 			<version>${spring.version}</version>
 		</dependency>
-		
+
 		<dependency>
-            <!-- Is the ApacheDS server - 1.5.6 and 1.5.7 don't work -->
-            <groupId>org.apache.directory.server</groupId>
-            <artifactId>apacheds-server-jndi</artifactId>
-            <version>1.5.5</version>
-        </dependency>
+			<!-- Is the ApacheDS server - 1.5.6 and 1.5.7 don't work -->
+			<groupId>org.apache.directory.server</groupId>
+			<artifactId>apacheds-server-jndi</artifactId>
+			<version>1.5.5</version>
+		</dependency>
+
+		<!-- Cassandra -->
+		<dependency>
+			<groupId>org.springframework.data</groupId>
+			<artifactId>spring-data-cassandra</artifactId>
+			<version>1.0.0.RELEASE</version>
+		</dependency>
 
 		<!-- LogBack dependencies -->
 		<dependency>
