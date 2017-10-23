@@ -37,7 +37,7 @@ import org.slf4j.LoggerFactory;
  * @author arenfakhourian
  *
  */
-@Path("/home")
+@Path("/usertweet")
 @Component
 public class UserTweetAPI {
 	

@@ -11,7 +11,7 @@ import org.springframework.security.authentication.encoding.LdapShaPasswordEncod
 @Configuration
 @EnableWebSecurity
 public class LoginSecurityConfig extends WebSecurityConfigurerAdapter {
-
+	
 	@Override
 	public void configure(AuthenticationManagerBuilder authenticationMgr) throws Exception {
 //		authenticationMgr.inMemoryAuthentication()
