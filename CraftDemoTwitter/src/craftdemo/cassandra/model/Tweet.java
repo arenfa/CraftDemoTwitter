@@ -9,9 +9,9 @@ import org.springframework.data.cassandra.mapping.Table;
 public class Tweet {
 
 	@PrimaryKey
+	private String userId;
 	private String id;
 	private String tweetMessage;
-	private String userId;
 	private Date createdAt;
 
 

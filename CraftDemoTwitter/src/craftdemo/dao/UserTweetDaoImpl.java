@@ -36,13 +36,13 @@ public class UserTweetDaoImpl implements UserTweetDao {
 	}
 
 	@Override
-	public void follow(long userId) throws Exception {
+	public void follow(String username) throws Exception {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void unfollow(long userId) throws Exception {
+	public void unfollow(String username) throws Exception {
 		// TODO Auto-generated method stub
 		
 	}

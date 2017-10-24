@@ -28,27 +28,23 @@ public class UserTweetServiceImpl implements UserTweetService {
 	}
 
 	@Override
-	public void follow(long userId) throws Exception {
-		// TODO Auto-generated method stub
-		
+	public void follow(String username) throws Exception {
+		userTweetDao.follow(username);
 	}
 
 	@Override
-	public void unfollow(long userId) throws Exception {
-		// TODO Auto-generated method stub
-		
+	public void unfollow(String username) throws Exception {
+		userTweetDao.unfollow(username);
 	}
 
 	@Override
 	public List<User> getFollowers() throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		return userTweetDao.getFollowers();
 	}
 
 	@Override
 	public List<User> getFollowingUsers() throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		return userTweetDao.getFollowingUsers();
 	}
 
 	@Override

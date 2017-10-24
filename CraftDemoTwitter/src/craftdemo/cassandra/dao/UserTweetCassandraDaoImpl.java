@@ -12,6 +12,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Repository;
 
+import craftdemo.cassandra.model.FollowingFollow;
 import craftdemo.cassandra.model.Tweet;
 import craftdemo.dao.UserTweetDao;
 import craftdemo.model.User;
@@ -27,7 +28,18 @@ public class UserTweetCassandraDaoImpl implements UserTweetDao {
 	@Override
 	public List<UserTweet> getFeed() throws Exception {
 		List<UserTweet> userTweets = new ArrayList<UserTweet>();
-		String cqlAll = "select * from tweet";
+		List<User> followingUsers = getFollowingUsers();
+		
+		if(followingUsers == null || followingUsers.isEmpty()) {
+			return userTweets;
+		}
+		
+		StringBuilder users = new StringBuilder("");
+		for(User user : followingUsers) {
+			users.append("'").append(user.getUsername()).append("',");
+		}
+		String userList = users.deleteCharAt(users.length() - 1).toString();
+		String cqlAll = "select * from tweet where userid in (" + userList + ") order by createdat desc limit 100";
 
 		List<Tweet> results = cassandraOperations.select(cqlAll, Tweet.class);
 		for (Tweet tweet : results) {
@@ -40,13 +52,16 @@ public class UserTweetCassandraDaoImpl implements UserTweetDao {
 	}
 
 	@Override
-	public void follow(long userId) throws Exception {
-		// TODO Auto-generated method stub
-		
+	public void follow(String username) throws Exception {
+		String currentUserId = AuthenticationUtil.getCurrentUserId();
+		FollowingFollow toFollow = new FollowingFollow();
+		toFollow.setFollowingUserId(username);
+		toFollow.setFollowerUserId(currentUserId);
+		cassandraOperations.insert(toFollow);
 	}
 
 	@Override
-	public void unfollow(long userId) throws Exception {
+	public void unfollow(String username) throws Exception {
 		// TODO Auto-generated method stub
 		
 	}
@@ -59,23 +74,28 @@ public class UserTweetCassandraDaoImpl implements UserTweetDao {
 
 	@Override
 	public List<User> getFollowingUsers() throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		String currentUserId = AuthenticationUtil.getCurrentUserId();
+		List<User> users = new ArrayList<User>();
+		String cqlAll = "select * from followingfollow where followeruserid='" + currentUserId + "'";
+
+		List<FollowingFollow> results = cassandraOperations.select(cqlAll, FollowingFollow.class);
+		for (FollowingFollow followingFollow : results) {
+			User user = new User();
+			user.setUsername(followingFollow.getFollowingUserId());
+			users.add(user);
+		}
+		return users;
 	}
 
 	@Override
 	public void tweet(String message) throws Exception {
 		String currentUserId = AuthenticationUtil.getCurrentUserId();
-		
-		if(currentUserId != null) {
-			Tweet tweet = new Tweet();
-			tweet.setId(UUID.randomUUID().toString());
-			tweet.setTweetMessage(message);
-			tweet.setUserId(currentUserId);
-			tweet.setCreatedAt(new Date());
-			cassandraOperations.insert(tweet);
-		}
-		
+		Tweet tweet = new Tweet();
+		tweet.setId(UUID.randomUUID().toString());
+		tweet.setTweetMessage(message);
+		tweet.setUserId(currentUserId);
+		tweet.setCreatedAt(new Date());
+		cassandraOperations.insert(tweet);
 	}
 
 }

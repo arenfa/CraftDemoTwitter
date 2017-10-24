@@ -28,6 +28,66 @@ sn: Fa
 uid: arenfa
 userPassword: password
 
+dn: uid=johnsm,ou=people,dc=baeldung,dc=com
+objectclass: top
+objectclass: person
+objectclass: organizationalPerson
+objectclass: inetOrgPerson
+cn: John Smith
+sn: Smith
+uid: johnsm
+userPassword: password
+
+dn: uid=janesm,ou=people,dc=baeldung,dc=com
+objectclass: top
+objectclass: person
+objectclass: organizationalPerson
+objectclass: inetOrgPerson
+cn: Jane Smith
+sn: Smith
+uid: janesm
+userPassword: password
+
+dn: uid=nickjack,ou=people,dc=baeldung,dc=com
+objectclass: top
+objectclass: person
+objectclass: organizationalPerson
+objectclass: inetOrgPerson
+cn: Nick Jackson
+sn: Jackson
+uid: nickjack
+userPassword: password
+
+dn: uid=jenjones,ou=people,dc=baeldung,dc=com
+objectclass: top
+objectclass: person
+objectclass: organizationalPerson
+objectclass: inetOrgPerson
+cn: Jen Jones
+sn: Jones
+uid: jenjones
+userPassword: password
+
+dn: uid=oliben,ou=people,dc=baeldung,dc=com
+objectclass: top
+objectclass: person
+objectclass: organizationalPerson
+objectclass: inetOrgPerson
+cn: Oliver Bernhard
+sn: Bernhard
+uid: oliben
+userPassword: password
+
+dn: uid=saraham,ou=people,dc=baeldung,dc=com
+objectclass: top
+objectclass: person
+objectclass: organizationalPerson
+objectclass: inetOrgPerson
+cn: Sara Hamilton
+sn: Hamilton
+uid: saraham
+userPassword: password
+
 dn: cn=admin,ou=groups,dc=baeldung,dc=com
 objectclass: top
 objectclass: groupOfNames
@@ -41,3 +101,9 @@ objectclass: groupOfNames
 cn: user
 member: uid=baeldung,ou=people,dc=baeldung,dc=com
 member: uid=arenfa,ou=people,dc=baeldung,dc=com
+member: uid=johnsm,ou=people,dc=baeldung,dc=com
+member: uid=janesm,ou=people,dc=baeldung,dc=com
+member: uid=nickjack,ou=people,dc=baeldung,dc=com
+member: uid=jenjones,ou=people,dc=baeldung,dc=com
+member: uid=oliben,ou=people,dc=baeldung,dc=com
+member: uid=saraham,ou=people,dc=baeldung,dc=com

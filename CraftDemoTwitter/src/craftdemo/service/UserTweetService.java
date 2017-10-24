@@ -12,8 +12,8 @@ import craftdemo.model.UserTweet;
 public interface UserTweetService {
 
 	List<UserTweet> getFeed() throws Exception;
-	void follow(long userId) throws Exception;
-	void unfollow(long userId) throws Exception;
+	void follow(String username) throws Exception;
+	void unfollow(String username) throws Exception;
 	List<User> getFollowers() throws Exception;
 	List<User> getFollowingUsers() throws Exception;
 	void tweet(String message) throws Exception;

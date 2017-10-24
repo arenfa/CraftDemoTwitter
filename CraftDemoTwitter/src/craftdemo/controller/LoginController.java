@@ -34,7 +34,7 @@ public class LoginController {
 		}
 
 		if (logout != null) {
-			model.addObject("message", "Logged out from JournalDEV successfully.");
+			model.addObject("message", "Logged out successfully.");
 		}
 
 		model.setViewName("loginPage");

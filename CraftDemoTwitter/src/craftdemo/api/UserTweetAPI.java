@@ -80,14 +80,14 @@ public class UserTweetAPI {
 	public Response follow(UserFollow userFollow) throws WebApplicationException {
 		try {
 			if(userFollow.isFollow()) {
-				userTweetService.follow(userFollow.getUserId());
+				userTweetService.follow(userFollow.getUsername());
 			} else {
-				userTweetService.unfollow(userFollow.getUserId());
+				userTweetService.unfollow(userFollow.getUsername());
 			}
 		} catch (Exception e) {
 			throw new WebApplicationException(e, Status.INTERNAL_SERVER_ERROR);
 		}
-		return Response.ok().build();
+		return Response.ok("{\"Success\" : \"Ok\"}").build();
 	}
 
 	@GET
@@ -115,31 +115,8 @@ public class UserTweetAPI {
 		} catch (Exception e) {
 			throw new WebApplicationException(e, Status.INTERNAL_SERVER_ERROR);
 		}
-		return Response.ok().build();
+		return Response.ok("{\"Success\" : \"Ok\"}").build();
 	}
 	
-	@GET
-	@Produces("application/xml")
-	public String convertCtoF() {
- 
-		Double fahrenheit;
-		Double celsius = 36.8;
-		fahrenheit = ((celsius * 9) / 5) + 32;
- 
-		String result = "@Produces(\"application/xml\") Output: \n\nC to F Converter Output: \n\n" + fahrenheit;
-		return "<ctofservice>" + "<celsius>" + celsius + "</celsius>" + "<ctofoutput>" + result + "</ctofoutput>" + "</ctofservice>";
-	}
- 
-	@Path("{c}")
-	@GET
-	@Produces("application/xml")
-	public String convertCtoFfromInput(@PathParam("c") Double c) {
-		Double fahrenheit;
-		Double celsius = c;
-		fahrenheit = ((celsius * 9) / 5) + 32;
- 
-		String result = "@Produces(\"application/xml\") Output: \n\nC to F Converter Output: \n\n" + fahrenheit;
-		return "<ctofservice>" + "<celsius>" + celsius + "</celsius>" + "<ctofoutput>" + result + "</ctofoutput>" + "</ctofservice>";
-	}
 
 }
