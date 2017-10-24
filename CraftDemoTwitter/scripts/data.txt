@@ -1,0 +1,26 @@
+CREATE KEYSPACE Craftdemotwitter
+  WITH REPLICATION = { 'class' : 'SimpleStrategy', 'replication_factor' : 3 };
+
+create table tweet(
+ userId text,
+  id text, 
+ tweetMessage text,
+  createdAt timestamp,
+  primary key ((userId), createdAt))
+with CLUSTERING ORDER BY (createdAt DESC)
+;
+
+create table user(
+  userId text, 
+ firstname text,
+ lastname text,
+  createdAt timestamp,
+  primary key (userId))
+
+;
+
+create table followingfollow(
+ followerUserId text,
+ followingUserId text,
+primary key ((followerUserId), followingUserId))
+;
