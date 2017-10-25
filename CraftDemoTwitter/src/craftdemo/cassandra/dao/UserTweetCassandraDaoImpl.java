@@ -1,15 +1,13 @@
 package craftdemo.cassandra.dao;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.cassandra.core.CassandraOperations;
-import org.springframework.security.authentication.AnonymousAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Repository;
 
 import craftdemo.cassandra.model.FollowingFollow;
@@ -46,6 +44,9 @@ public class UserTweetCassandraDaoImpl implements UserTweetDao {
 			UserTweet userTweet = new UserTweet();
 			userTweet.setUsername(tweet.getUserId());
 			userTweet.setTweetMessage(tweet.getTweetMessage());
+			Calendar calendar = Calendar.getInstance();
+			calendar.setTime(tweet.getCreatedAt());
+			userTweet.setDateTime(calendar);
 			userTweets.add(userTweet);
 		}
 		return userTweets;

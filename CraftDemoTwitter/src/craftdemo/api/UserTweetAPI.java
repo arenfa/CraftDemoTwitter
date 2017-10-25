@@ -3,34 +3,28 @@ package craftdemo.api;
  
 import java.util.List;
 
-import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.AnonymousAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
 import craftdemo.model.Tweet;
-import craftdemo.model.User;
 import craftdemo.model.UserFollow;
 import craftdemo.model.UserTweet;
 import craftdemo.model.UserTweets;
 import craftdemo.model.Users;
 import craftdemo.service.UserTweetService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
  
 /**
@@ -50,22 +44,14 @@ public class UserTweetAPI {
 	@Path("/feed")
 	@Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
 	//@RolesAllowed("ROLE_USER")
-	public UserTweets feed() throws WebApplicationException {
-		log.info("test");
-		log.error("test error");
+	public UserTweets feed(@QueryParam("StartAtDate") String startAtDate) throws WebApplicationException {
 		UserTweets userTweets = new UserTweets();
-		
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		if (!(authentication instanceof AnonymousAuthenticationToken)) {
-		    String currentUserName = authentication.getName();
-		   System.out.println("user is: " + currentUserName);
-		}
 		
 		try {
 			List<UserTweet> userTweetList = userTweetService.getFeed();
 			userTweets.getUserTweet().addAll(userTweetList);
 		} catch (Exception e) {
-			// TODO log
+			log.error("API error", e);
 			throw new WebApplicationException(e, Status.INTERNAL_SERVER_ERROR);
 		}
 		
@@ -85,6 +71,7 @@ public class UserTweetAPI {
 				userTweetService.unfollow(userFollow.getUsername());
 			}
 		} catch (Exception e) {
+			log.error("API error", e);
 			throw new WebApplicationException(e, Status.INTERNAL_SERVER_ERROR);
 		}
 		return Response.ok("{\"Success\" : \"Ok\"}").build();
@@ -113,6 +100,7 @@ public class UserTweetAPI {
 		try {
 			userTweetService.tweet(tweet.getTweetMessage());
 		} catch (Exception e) {
+			log.error("API error", e);
 			throw new WebApplicationException(e, Status.INTERNAL_SERVER_ERROR);
 		}
 		return Response.ok("{\"Success\" : \"Ok\"}").build();
