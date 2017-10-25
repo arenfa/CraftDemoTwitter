@@ -20,6 +20,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import craftdemo.model.Tweet;
+import craftdemo.model.User;
 import craftdemo.model.UserFollow;
 import craftdemo.model.UserTweet;
 import craftdemo.model.UserTweets;
@@ -81,14 +82,32 @@ public class UserTweetAPI {
 	@Path("/followers")
 	@Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
 	public Users getFollowers() throws WebApplicationException {
-		return null;
+		Users users = new Users();
+		try {
+			List<User> userList = userTweetService.getFollowers();
+			users.getUser().addAll(userList);
+		} catch (Exception e) {
+			log.error("API error", e);
+			throw new WebApplicationException(e, Status.INTERNAL_SERVER_ERROR);
+		}
+		
+		return users;
 	}
 
 	@GET
 	@Path("/following")
 	@Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
 	public Users getFollowingUsers() throws WebApplicationException {
-		return null;
+		Users users = new Users();
+		try {
+			List<User> userList = userTweetService.getFollowingUsers();
+			users.getUser().addAll(userList);
+		} catch (Exception e) {
+			log.error("API error", e);
+			throw new WebApplicationException(e, Status.INTERNAL_SERVER_ERROR);
+		}
+		
+		return users;
 	}
 	
 

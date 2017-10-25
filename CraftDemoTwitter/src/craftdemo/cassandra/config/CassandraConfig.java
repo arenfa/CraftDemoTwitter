@@ -18,6 +18,10 @@ import org.springframework.data.cassandra.mapping.BasicCassandraMappingContext;
 import org.springframework.data.cassandra.mapping.CassandraMappingContext;
 import org.springframework.data.cassandra.repository.config.EnableCassandraRepositories;
 
+/**
+ * @author arenfakhourian
+ *
+ */
 @Configuration
 @PropertySource(value = { "classpath:cassandra.properties" })
 @EnableCassandraRepositories(basePackages = { "org.spring.cassandra.example.repo" })

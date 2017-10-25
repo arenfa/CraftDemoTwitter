@@ -4,6 +4,10 @@ import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 
+/**
+ * @author arenfakhourian
+ *
+ */
 public class AuthenticationUtil {
 	
 	public static String getCurrentUserId() {
@@ -11,7 +15,6 @@ public class AuthenticationUtil {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		if (!(authentication instanceof AnonymousAuthenticationToken)) {
 		     currentUserName = authentication.getName();
-
 		}
 		
 		return currentUserName;

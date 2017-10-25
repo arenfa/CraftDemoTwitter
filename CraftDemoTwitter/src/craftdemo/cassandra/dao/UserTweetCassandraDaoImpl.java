@@ -17,6 +17,10 @@ import craftdemo.model.User;
 import craftdemo.model.UserTweet;
 import craftdemo.util.AuthenticationUtil;
 
+/**
+ * @author arenfakhourian
+ *
+ */
 @Repository("userTweetCassandraDAO")
 public class UserTweetCassandraDaoImpl implements UserTweetDao {
 
@@ -37,6 +41,10 @@ public class UserTweetCassandraDaoImpl implements UserTweetDao {
 			users.append("'").append(user.getUsername()).append("',");
 		}
 		String userList = users.deleteCharAt(users.length() - 1).toString();
+		
+		// This can be used paging if API would provide createdat
+		// select * from tweet where userid in ('arenfa', 'janesm') and createdat < '2017-10-24 02:25:25-0700' order by createdat desc limit 100;
+		
 		String cqlAll = "select * from tweet where userid in (" + userList + ") order by createdat desc limit 100";
 
 		List<Tweet> results = cassandraOperations.select(cqlAll, Tweet.class);

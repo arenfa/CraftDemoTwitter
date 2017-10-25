@@ -16,7 +16,6 @@ create table user(
  lastname text,
   createdAt timestamp,
   primary key (userId))
-
 ;
 
 create table followingfollow(
