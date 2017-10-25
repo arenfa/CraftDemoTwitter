@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<xs:schema elementFormDefault="qualified" targetNamespace="http://tw.com/xsd/usertweet/1.0"
+		xmlns:tw="http://tw.com/xsd/usertweet/1.0"
+        xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+	<xs:element name="UserTweets">
+	 <xs:complexType>
+	  <xs:sequence>
+		  <xs:element name="UserTweet" type="tw:UserTweet" minOccurs="0" maxOccurs="unbounded"/>
+	  </xs:sequence>
+	 </xs:complexType>
+	</xs:element>
+
+	<xs:complexType name="UserTweet">
+		<xs:sequence>
+			<xs:element name="Username" type="xs:string"/>
+			<xs:element name="TweetMessage" type="xs:string"/>
+			<xs:element name="DateTime" type="xs:dateTime" minOccurs="0" />
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:element name="Users">
+	 <xs:complexType>
+	  <xs:sequence>
+		  <xs:element name="User" type="tw:User" minOccurs="0" maxOccurs="unbounded"/>
+	  </xs:sequence>
+	 </xs:complexType>
+	</xs:element>
+	
+	<xs:complexType name="User">
+		<xs:sequence>
+			<xs:element name="Username" type="xs:string"/>
+			<xs:element name="Firstname" type="xs:string"/>
+			<xs:element name="Lastname" type="xs:string"/>
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name="Tweet">
+		<xs:sequence>
+			<xs:element name="TweetMessage" type="xs:string"/>
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name="UserFollow">
+		<xs:sequence>
+			<xs:element name="Username" type="xs:string"/>
+			<xs:element name="Follow" type="xs:boolean" default="false"/>
+		</xs:sequence>
+	</xs:complexType>
+
+</xs:schema>
